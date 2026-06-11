@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用电影学英语 · English via Cinema</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #FAFAF8;
+            --text: #1C1C1C;
+            --text-secondary: #5A5A58;
+            --text-tertiary: #8A8A88;
+            --accent: #2B5B4B;
+            --accent-soft: #E8F0EC;
+            --card-bg: #FFFFFF;
+            --border: #E5E5E0;
+            --border-soft: #EFEFEA;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Serif SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 80px 24px 100px;
+        }
+
+        /* Header */
+        .breadcrumb {
+            font-size: 0.82rem;
+            color: var(--text-tertiary);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-tertiary);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--text-tertiary);
+            padding-bottom: 1px;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .hero {
+            margin-bottom: 64px;
+        }
+
+        .hero h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+            font-size: 2.4rem;
+            letter-spacing: 0.02em;
+            margin-bottom: 12px;
+        }
+
+        .hero .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .hero .intro {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.02rem;
+            color: var(--text-secondary);
+            line-height: 1.85;
+            max-width: 620px;
+        }
+
+        /* Section title */
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 28px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 0.78rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Movie grid */
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .movie-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.25s ease, transform 0.15s ease, border-color 0.2s ease;
+        }
+
+        a.movie-card:hover {
+            box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+            transform: translateY(-2px);
+            border-color: var(--accent);
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 140px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #2B5B4B 0%, #1A3D32 100%);
+            color: #FFFFFF;
+            font-family: 'Noto Serif SC', serif;
+            text-align: center;
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .movie-poster .poster-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: 0.02em;
+        }
+
+        .movie-poster .poster-year {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            opacity: 0.7;
+            letter-spacing: 0.15em;
+            margin-top: 8px;
+        }
+
+        /* Variant posters for distinction */
+        .movie-poster.variant-warm {
+            background: linear-gradient(135deg, #B8642E 0%, #7F3F1A 100%);
+        }
+
+        .movie-poster.variant-deep {
+            background: linear-gradient(135deg, #3F4859 0%, #232938 100%);
+        }
+
+        .movie-card h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .movie-card .english-title {
+            font-size: 0.82rem;
+            color: var(--text-tertiary);
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+
+        .movie-card .desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            flex-grow: 1;
+            margin-bottom: 16px;
+        }
+
+        .movie-card .meta {
+            padding-top: 14px;
+            border-top: 1px solid var(--border-soft);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.78rem;
+        }
+
+        .movie-card .meta-info {
+            color: var(--text-tertiary);
+            letter-spacing: 0.04em;
+        }
+
+        .movie-card .arrow {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Coming soon variant */
+        .movie-card.coming {
+            cursor: default;
+            opacity: 0.85;
+        }
+
+        .movie-card.coming .movie-poster {
+            background: linear-gradient(135deg, #B8B5AC 0%, #908B7F 100%);
+        }
+
+        .movie-card.coming .arrow {
+            color: var(--text-tertiary);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 80px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .footer a:hover { text-decoration: underline; }
+
+        /* Mobile */
+        @media (max-width: 720px) {
+            .container { padding: 56px 20px 80px; }
+            .hero h1 { font-size: 1.8rem; }
+            .movies-grid { grid-template-columns: 1fr; }
+            .footer {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb">
+            <a href="https://www.lizeming.net">← 李泽民</a>
+        </nav>
+
+        <!-- Hero -->
+        <header class="hero">
+            <h1>用电影学英语</h1>
+            <p class="subtitle">English via Cinema</p>
+            <p class="intro">从经典英文电影出发，逐幕拆解台词、按主题归类词汇，把娱乐过程变成学习过程。每部电影按章节切分，配合观影使用效果最佳。</p>
+        </header>
+
+        <!-- Movies -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title">电影库</h2>
+                <span class="section-subtitle">Film Library</span>
+            </div>
+
+            <div class="movies-grid">
+
+                <!-- 12 Angry Men -->
+                <a class="movie-card" href="/12-angry-men/">
+                    <div class="movie-poster">
+                        <div>
+                            <div class="poster-title">十二怒汉</div>
+                            <div class="poster-year">1957</div>
+                        </div>
+                    </div>
+                    <h3>十二怒汉</h3>
+                    <p class="english-title">12 Angry Men</p>
+                    <p class="desc">一桩谋杀案的陪审团辩论。十二个普通人在密室中，凭借推理、偏见与良知，左右一个少年的生死。</p>
+                    <div class="meta">
+                        <span class="meta-info">司法 · 群像 · 1957</span>
+                        <span class="arrow">开始学习 →</span>
+                    </div>
+                </a>
+
+                <!-- Pursuit of Happyness placeholder -->
+                <div class="movie-card coming">
+                    <div class="movie-poster variant-warm">
+                        <div>
+                            <div class="poster-title">当幸福来敲门</div>
+                            <div class="poster-year">2006</div>
+                        </div>
+                    </div>
+                    <h3>当幸福来敲门</h3>
+                    <p class="english-title">The Pursuit of Happyness</p>
+                    <p class="desc">一个推销员父亲在事业崩塌、妻子离去、无家可归的境地里，带着儿子走向斯坦福证券交易所的实习面试。</p>
+                    <div class="meta">
+                        <span class="meta-info">传记 · 励志 · 2006</span>
+                        <span class="arrow">即将上线</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <span>© 2025 Li Zemin</span>
+            <a href="https://www.lizeming.net">返回主页</a>
+        </footer>
+
+    </div>
+</body>
+</html>
