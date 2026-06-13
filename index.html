@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>用电影学英语 — english.lizeming.net</title>
+    <title>学英语 — english.lizeming.net</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -32,20 +32,62 @@
         .hero h1 { font-family: 'Noto Serif SC', serif; font-size: 2.2rem; font-weight: 700; margin-bottom: 12px; }
         .hero p { color: var(--text-secondary); font-size: 0.95rem; max-width: 520px; margin: 0 auto; line-height: 1.8; }
 
+        .tabs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 44px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-secondary);
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 9px 26px;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+        .tab:hover { border-color: var(--accent); color: var(--accent); }
+        .tab.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .section-block { margin-bottom: 56px; }
+        .section-block[hidden] { display: none; }
+        .section-head { margin-bottom: 28px; }
         .section-title {
             font-family: 'Noto Serif SC', serif;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             font-weight: 700;
+            color: var(--text);
+            letter-spacing: 0.04em;
+            margin-bottom: 6px;
+        }
+        .section-sub {
+            font-size: 0.88rem;
             color: var(--text-tertiary);
-            letter-spacing: 0.05em;
-            margin-bottom: 28px;
+            letter-spacing: 0.02em;
+        }
+        .coming-soon {
+            border: 1px dashed var(--border);
+            border-radius: 14px;
+            padding: 44px 24px;
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 0.92rem;
+            background: var(--card-bg);
         }
 
         .movies-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 28px;
-            margin-bottom: 64px;
         }
 
         .movie-card {
@@ -77,6 +119,9 @@
         }
         .movie-poster.variant-deep {
             background: linear-gradient(135deg, #3B4371 0%, #28304E 100%);
+        }
+        .movie-poster.variant-news {
+            background: linear-gradient(135deg, #B44D2D 0%, #7A2E18 100%);
         }
         .poster-title {
             font-family: 'Noto Serif SC', serif;
@@ -148,13 +193,21 @@
 <div class="container">
 
     <header class="hero">
-        <h1>用电影学英语</h1>
-        <p>精选经典电影，逐章拆解对白，积累地道词汇与表达。每部电影都是一本活的教材。</p>
+        <h1>学英语</h1>
+        <p>从经典电影到当下热点，挑选鲜活的语料，逐句拆解地道表达。让语言在真实语境里生长。</p>
     </header>
 
-    <p class="section-title">电影库</p>
+    <nav class="tabs">
+        <button class="tab active" type="button" data-target="panel-film">光影叙事</button>
+        <button class="tab" type="button" data-target="panel-topic">时代脉络</button>
+    </nav>
 
-    <div class="movies-grid">
+    <section class="section-block" id="panel-film">
+        <div class="section-head">
+            <p class="section-sub">用电影学英语 · 逐章拆解对白，积累地道词汇与表达</p>
+        </div>
+
+        <div class="movies-grid">
 
         <a class="movie-card" href="/12-angry-men/">
             <div class="movie-poster">
@@ -204,12 +257,50 @@
             </div>
         </a>
 
-    </div>
+        </div>
+    </section>
+
+    <section class="section-block" id="panel-topic" hidden>
+        <div class="section-head">
+            <p class="section-sub">用当下热门话题学英语 · 在真实时事语境中理解地道表达</p>
+        </div>
+
+        <div class="movies-grid">
+
+        <a class="movie-card" href="/fable-mythos-suspension/">
+            <div class="movie-poster variant-news">
+                <div>
+                    <div class="poster-title">Fable 5 风波</div>
+                    <div class="poster-year">2026.06</div>
+                </div>
+            </div>
+            <h3>美国政府暂停 Fable 5 与 Mythos 5</h3>
+            <p class="english-title">US Government Suspends Access to Fable 5 &amp; Mythos 5</p>
+            <p class="desc">以 Anthropic 官方声明为素材，拆解政策、科技与商业英语的高频词汇与句式：出口管制、合规、越狱、纵深防御……一篇读懂正式声明的措辞之道。</p>
+            <div class="meta">
+                <span class="meta-info">官方声明 · 时事 · B2 · 2026</span>
+                <span class="arrow">开始学习 →</span>
+            </div>
+        </a>
+
+        </div>
+    </section>
 
     <footer>
         <p>&copy; 2025 · <a href="https://www.lizeming.net/">返回主页</a></p>
     </footer>
 
 </div>
+
+<script>
+    document.querySelectorAll('.tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
+            document.querySelectorAll('.section-block').forEach(function (p) { p.hidden = true; });
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.target).hidden = false;
+        });
+    });
+</script>
 </body>
 </html>
