@@ -209,7 +209,7 @@
 
         <div class="movies-grid">
 
-        <a class="movie-card" href="/12-angry-men/">
+        <a class="movie-card" href="/12-angry-men/" data-date="2026-06-11">
             <div class="movie-poster">
                 <div>
                     <div class="poster-title">十二怒汉</div>
@@ -225,7 +225,7 @@
             </div>
         </a>
 
-        <a class="movie-card" href="/pursuit-of-happyness/">
+        <a class="movie-card" href="/pursuit-of-happyness/" data-date="2026-06-11">
             <div class="movie-poster variant-warm">
                 <div>
                     <div class="poster-title">当幸福来敲门</div>
@@ -241,7 +241,7 @@
             </div>
         </a>
 
-        <a class="movie-card" href="/the-west-wing/">
+        <a class="movie-card" href="/the-west-wing/" data-date="2026-06-11">
             <div class="movie-poster variant-deep">
                 <div>
                     <div class="poster-title">白宫风云</div>
@@ -267,7 +267,7 @@
 
         <div class="movies-grid">
 
-        <a class="movie-card" href="/fable-mythos-suspension/">
+        <a class="movie-card" href="/fable-mythos-suspension/" data-date="2026-06-13">
             <div class="movie-poster variant-news">
                 <div>
                     <div class="poster-title">Fable 5 风波</div>
@@ -293,14 +293,35 @@
 </div>
 
 <script>
+    function activateTab(target) {
+        document.querySelectorAll('.tab').forEach(function (t) {
+            t.classList.toggle('active', t.dataset.target === target);
+        });
+        document.querySelectorAll('.section-block').forEach(function (p) {
+            p.hidden = p.id !== target;
+        });
+    }
+
     document.querySelectorAll('.tab').forEach(function (tab) {
         tab.addEventListener('click', function () {
-            document.querySelectorAll('.tab').forEach(function (t) { t.classList.remove('active'); });
-            document.querySelectorAll('.section-block').forEach(function (p) { p.hidden = true; });
-            tab.classList.add('active');
-            document.getElementById(tab.dataset.target).hidden = false;
+            activateTab(tab.dataset.target);
         });
     });
+
+    // 默认显示「最新更新」所在的标签：扫描所有卡片的 data-date，取最新的那条。
+    // 以后给新卡片填上更晚的 data-date（YYYY-MM-DD），进主页就会自动切到它所在的标签。
+    (function () {
+        var latestDate = null, latestPanel = null;
+        document.querySelectorAll('.movie-card[data-date]').forEach(function (card) {
+            var d = card.getAttribute('data-date');
+            if (latestDate === null || d > latestDate) {
+                latestDate = d;
+                var panel = card.closest('.section-block');
+                if (panel) { latestPanel = panel.id; }
+            }
+        });
+        if (latestPanel) { activateTab(latestPanel); }
+    })();
 </script>
 </body>
 </html>
